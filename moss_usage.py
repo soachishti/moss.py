@@ -1,13 +1,15 @@
 from moss import moss
 
-m = moss.Moss("userid", "python")
+userid = int(open("userid.txt").read(80))
 
-m.addBaseFile("a01.py")
-m.addBaseFile("a01_other_file.py")
+m = moss.Moss(userid, "python")
+
+#m.addBaseFile("submission/a01.py")
+#m.addBaseFile("submission/test_student.py")
 
 # Submission Files
-m.addFile("submission/abc.py")
+m.addFile("submission/a01-sample.py")
 
-m.addFilesByWildcard("submission/a01-p17*.py")
+m.addFilesByWildcard("submission/a01-*.py")
 
-m.send()
+print(m.send())
