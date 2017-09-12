@@ -2,6 +2,10 @@ import os
 import socket
 import glob
 
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib2 import urlopen
 
 class Moss:
     languages = (
@@ -94,34 +98,42 @@ class Moss:
         s.send(open(file).read(size).encode())
 
     def send(self):
-        with socket.socket() as s:
-            s.connect((self.server, self.port))
+        s = socket.socket() 
+        s.connect((self.server, self.port))
 
-            s.send("moss {}\n".format(self.userid).encode())
-            s.send("directory {}\n".format(self.options['d']).encode())
-            s.send("X {}\n".format(self.options['x']).encode())
-            s.send("maxmatches {}\n".format(self.options['m']).encode())
-            s.send("show {}\n".format(self.options['n']).encode())
+        s.send("moss {}\n".format(self.userid).encode())
+        s.send("directory {}\n".format(self.options['d']).encode())
+        s.send("X {}\n".format(self.options['x']).encode())
+        s.send("maxmatches {}\n".format(self.options['m']).encode())
+        s.send("show {}\n".format(self.options['n']).encode())
 
-            s.send("language {}\n".format(self.options['l']).encode())
-            recv = s.recv(1024)
-            if recv == "no":
-                s.send(b"end\n")
-                s.close()
-                raise Exception("send() => Language not accepted by server")
-
-            for file in self.basefiles:
-                self.uploadFile(s, file, 0)
-
-            index = 1
-            for file in self.files:
-                self.uploadFile(s, file, index)
-
-            s.send("query 0 {}\n".format(self.options['c']).encode())
-
-            response = s.recv(1024)
-
+        s.send("language {}\n".format(self.options['l']).encode())
+        recv = s.recv(1024)
+        if recv == "no":
             s.send(b"end\n")
             s.close()
+            raise Exception("send() => Language not accepted by server")
 
-            return response
+        for file in self.basefiles:
+            self.uploadFile(s, file, 0)
+
+        index = 1
+        for file in self.files:
+            self.uploadFile(s, file, index)
+
+        s.send("query 0 {}\n".format(self.options['c']).encode())
+
+        response = s.recv(1024)
+
+        s.send(b"end\n")
+        s.close()
+
+        return response
+
+    def saveWebPage(self, url, path):
+        response = urlopen(url)
+        content = response.read()
+
+        f = open(path, 'w')
+        f.write(content.decode())
+        f.close

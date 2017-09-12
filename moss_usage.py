@@ -12,4 +12,6 @@ m.addFile("submission/a01-sample.py")
 
 m.addFilesByWildcard("submission/a01-*.py")
 
-print(m.send())
+url = m.send().decode().replace("\n","")
+
+m.saveWebPage(url, "submission/report.html")
