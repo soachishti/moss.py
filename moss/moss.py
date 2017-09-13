@@ -87,15 +87,16 @@ class Moss:
 
     def uploadFile(self, s, file, id):
         size = os.path.getsize(file)
-        s.send(
-            "file {} {} {} {}\n".format(
-                id,
-                self.options['l'],
-                size,
-                file.replace(
-                    " ",
-                    "_")).encode())
-        s.send(open(file).read(size).encode())
+        filename_fixed = os.path.basename(file).replace(" ", "_")
+        message = "file {0} {1} {2} {3}\n".format(
+            id,
+            self.options['l'],
+            size,
+            filename_fixed
+        )
+        s.send(message.encode())
+        content = open(file,"rb").read(size)
+        s.send(content)
 
     def send(self):
         s = socket.socket() 
