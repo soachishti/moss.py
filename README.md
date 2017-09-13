@@ -39,7 +39,6 @@ m.saveWebPage(url, "submission/report.html")
 
 ## Similar Project
 
-* [Original shell script](http://moss.stanford.edu/general/scripts.html)  
 * [ocaml-moss](https://github.com/Chris00/ocaml-moss) OCaml client 
 * [cl-moss](https://github.com/wsgac/cl-moss) Common Lisp
 * [moji](https://github.com/nordicway/moji) Java version
