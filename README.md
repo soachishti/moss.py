@@ -1,6 +1,6 @@
 # moss.py
 
-A Python client for [moss](http://theory.stanford.edu/~aiken/moss/): A System for Detecting Software Similarity
+A Python client for [Moss](http://theory.stanford.edu/~aiken/moss/): A System for Detecting Software Similarity
 
 ## Introduction
 
@@ -19,7 +19,9 @@ pip install moss-py
 ```
 from moss import moss
 
-m = moss.Moss(123456789, "python")
+userid = 123456789
+
+m = moss.Moss(userid, "python")
 
 m.addBaseFile("submission/a01.py")
 m.addBaseFile("submission/test_student.py")
