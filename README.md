@@ -1,12 +1,12 @@
 # moss.py
 
-A Python client for [moss](http://theory.stanford.edu/~aiken/moss/): A System for Detecting Software Similarity
+A Python client for [Moss](http://theory.stanford.edu/~aiken/moss/): A System for Detecting Software Similarity
 
 ## Introduction
 
 It is a Python interface for [Moss](http://theory.stanford.edu/~aiken/moss/) client. It was written for [AutoGrader](https://github.com/BilalZaib/AutoGrader) for handling similarity in Python assignment submission. 
 
-It was written using the [Original bash script/documentation](http://moss.stanford.edu/general/scripts.html) and its [PHP](https://github.com/Phhere/MOSS-PHP) dialect.
+It was written using the [original bash script/documentation](http://moss.stanford.edu/general/scripts.html) and its [PHP](https://github.com/Phhere/MOSS-PHP) dialect.
 
 ### Installation
  
