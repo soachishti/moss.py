@@ -11,15 +11,17 @@ It was written using the [Original bash script/documentation](http://moss.stanfo
 ### Installation
  
 ```
-pip install moss-py
+pip install mosspy
 ```
 
 ### Usage
 
 ```
-from moss import moss
+import mosspy
 
-m = moss.Moss(123456789, "python")
+userid = 987654321
+
+m = mosspy.Moss(userid, "python")
 
 m.addBaseFile("submission/a01.py")
 m.addBaseFile("submission/test_student.py")
@@ -33,7 +35,7 @@ url = m.send() # Submission Report URL
 m.saveWebPage(url, "submission/report.html")
 ```
 
-## Works on...
+## Python Compatibility
 
 * [Python](http://www.python.com) - v2.7.* and v3.*
 

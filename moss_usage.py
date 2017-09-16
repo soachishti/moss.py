@@ -1,8 +1,8 @@
-from moss import moss
+import moss_py
 
-userid = int(open("userid.txt").read(80))
+userid = 987654321
 
-m = moss.Moss(userid, "python")
+m = moss_py.Moss(userid, "python")
 
 #m.addBaseFile("submission/a01.py")
 #m.addBaseFile("submission/test_student.py")
