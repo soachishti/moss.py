@@ -121,6 +121,7 @@ class Moss:
         index = 1
         for file in self.files:
             self.uploadFile(s, file, index)
+            index += 1
 
         s.send("query 0 {}\n".format(self.options['c']).encode())
 
