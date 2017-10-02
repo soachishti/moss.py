@@ -35,20 +35,20 @@ class Moss:
         "plsql")
     server = 'moss.stanford.edu'
     port = 7690
-    userid = None
-    options = {
-        "l": "c",
-        "m": 10,
-        "d": 0,
-        "x": 0,
-        "c": "",
-        "n": 250
-    }
-    basefiles = []
-    files = []
 
-    def __init__(self, userid, language = "c"):
+    def __init__(self, userid, language="c"):
         self.userid = userid
+        self.userid = None
+        self.options = {
+            "l": "c",
+            "m": 10,
+            "d": 0,
+            "x": 0,
+            "c": "",
+            "n": 250
+        }
+        self.basefiles = []
+        self.files = []
 
         if language in self.languages:
             self.options["l"] = language
