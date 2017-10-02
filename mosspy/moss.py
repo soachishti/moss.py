@@ -138,4 +138,4 @@ class Moss:
 
         f = open(path, 'w')
         f.write(content.decode())
-        f.close
+        f.close()
