@@ -38,7 +38,6 @@ class Moss:
 
     def __init__(self, userid, language="c"):
         self.userid = userid
-        self.userid = None
         self.options = {
             "l": "c",
             "m": 10,
