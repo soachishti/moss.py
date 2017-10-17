@@ -10,13 +10,13 @@ It was written using the [original bash script/documentation](http://moss.stanfo
 
 ### Installation
  
-```
+```shell
 pip install mosspy
 ```
 
 ### Usage
 
-```
+```python
 import mosspy
 
 userid = 987654321
