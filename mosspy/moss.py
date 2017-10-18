@@ -133,6 +133,9 @@ class Moss:
         return response.decode().replace("\n","")
 
     def saveWebPage(self, url, path):
+        if len(url) == 0:
+            raise Exception("Empty url supplied")
+
         response = urlopen(url)
         content = response.read()
 

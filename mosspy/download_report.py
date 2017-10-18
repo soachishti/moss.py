@@ -1,4 +1,3 @@
-from bs4 import BeautifulSoup
 from threading import Thread
 import logging
 import os
@@ -8,6 +7,8 @@ except ImportError:
     from urllib2 import urlopen
 
 def process_url(url, urls, base_url, path):
+    from bs4 import BeautifulSoup # Backward compability, don't break Moss when bs4 not available.
+
     logging.debug ("Processing URL: " + url)
     response = urlopen(url)
     html = response.read()
