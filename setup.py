@@ -19,4 +19,5 @@ setup(
   download_url = 'https://github.com/soachishti/moss.py/releases', # I'll explain this in a second
   keywords = ['moss', 'similarity', 'detecting', 'plagiarism'], # arbitrary keywords
   classifiers = [],
+  install_requires=['beautifulsoup4==4.6.0'],
 )
