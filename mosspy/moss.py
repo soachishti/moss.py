@@ -1,6 +1,7 @@
 import os
 import socket
 import glob
+import logging
 
 try:
     from urllib.request import urlopen
@@ -132,6 +133,9 @@ class Moss:
         return response.decode().replace("\n","")
 
     def saveWebPage(self, url, path):
+        if len(url) == 0:
+            raise Exception("Empty url supplied")
+
         response = urlopen(url)
         content = response.read()
 
