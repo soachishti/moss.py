@@ -1,4 +1,6 @@
 userid.txt
+submission/report.html
+submission/report/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
