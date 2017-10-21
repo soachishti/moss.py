@@ -73,7 +73,7 @@ class Moss:
         if os.path.isfile(file_path):
             self.base_files.append((file_path, display_name))
         else:
-            raise Exception("addFile({}) => File Not Found".format(file_path))
+            raise Exception("addBaseFile({}) => File Not Found".format(file_path))
 
     def addFile(self, file_path, display_name=None):
         if os.path.isfile(file_path):
