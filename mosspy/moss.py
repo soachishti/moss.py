@@ -37,8 +37,8 @@ class Moss:
     server = 'moss.stanford.edu'
     port = 7690
 
-    def __init__(self, userid, language="c"):
-        self.userid = userid
+    def __init__(self, user_id, language="c"):
+        self.user_id = user_id
         self.options = {
             "l": "c",
             "m": 10,
@@ -47,7 +47,7 @@ class Moss:
             "c": "",
             "n": 250
         }
-        self.basefiles = []
+        self.base_files = []
         self.files = []
 
         if language in self.languages:
@@ -69,40 +69,46 @@ class Moss:
     def setExperimentalServer(self, opt):
         self.options['x'] = opt
 
-    def addBaseFile(self, file):
-        self.basefiles.append(file)
-
-    def addFile(self, file):
-        if os.path.isfile(file):
-            self.files.append(file)
+    def addBaseFile(self, file_path, display_name=None):
+        if os.path.isfile(file_path):
+            self.base_files.append((file_path, display_name))
         else:
-            raise Exception("addFile({}) => File Not Found".format(file))
+            raise Exception("addFile({}) => File Not Found".format(file_path))
+
+    def addFile(self, file_path, display_name=None):
+        if os.path.isfile(file_path):
+            self.files.append((file_path, display_name))
+        else:
+            raise Exception("addFile({}) => File Not Found".format(file_path))
 
     def addFilesByWildcard(self, wildcard):
         for file in glob.glob(wildcard):
-            self.files.append(file)
+            self.files.append((file, None))
 
     def getLanguages(self):
-        return languages
+        return self.languages
 
-    def uploadFile(self, s, file, id):
-        size = os.path.getsize(file)
-        filename_fixed = os.path.basename(file).replace(" ", "_")
+    def uploadFile(self, s, file_path, display_name, file_id):
+        if display_name is None:
+            # If no display name added by user, default to file path
+            display_name = os.path.basename(file_path).replace(" ", "_")
+
+        size = os.path.getsize(file_path)
         message = "file {0} {1} {2} {3}\n".format(
-            id,
+            file_id,
             self.options['l'],
             size,
-            filename_fixed
+            display_name
         )
         s.send(message.encode())
-        content = open(file,"rb").read(size)
+        content = open(file_path, "rb").read(size)
         s.send(content)
 
     def send(self):
         s = socket.socket() 
         s.connect((self.server, self.port))
 
-        s.send("moss {}\n".format(self.userid).encode())
+        s.send("moss {}\n".format(self.user_id).encode())
         s.send("directory {}\n".format(self.options['d']).encode())
         s.send("X {}\n".format(self.options['x']).encode())
         s.send("maxmatches {}\n".format(self.options['m']).encode())
@@ -115,12 +121,12 @@ class Moss:
             s.close()
             raise Exception("send() => Language not accepted by server")
 
-        for file in self.basefiles:
-            self.uploadFile(s, file, 0)
+        for file_path, display_name in self.base_files:
+            self.uploadFile(s, file_path, display_name, 0)
 
         index = 1
-        for file in self.files:
-            self.uploadFile(s, file, index)
+        for file_path, display_name in self.files:
+            self.uploadFile(s, file_path, display_name, index)
             index += 1
 
         s.send("query 0 {}\n".format(self.options['c']).encode())
