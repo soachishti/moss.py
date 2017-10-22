@@ -91,7 +91,7 @@ class Moss:
     def uploadFile(self, s, file_path, display_name, file_id):
         if display_name is None:
             # If no display name added by user, default to file path
-            display_name = os.path.basename(file_path).replace(" ", "_")
+            display_name = file_path.replace(" ", "_")
 
         size = os.path.getsize(file_path)
         message = "file {0} {1} {2} {3}\n".format(
