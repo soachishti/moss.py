@@ -70,13 +70,13 @@ class Moss:
         self.options['x'] = opt
 
     def addBaseFile(self, file_path, display_name=None):
-        if os.path.isfile(file_path):
+        if os.path.isfile(file_path) and os.path.getsize(file_path) > 0:
             self.base_files.append((file_path, display_name))
         else:
             raise Exception("addBaseFile({}) => File Not Found".format(file_path))
 
     def addFile(self, file_path, display_name=None):
-        if os.path.isfile(file_path):
+        if os.path.isfile(file_path) and os.path.getsize(file_path) > 0:
             self.files.append((file_path, display_name))
         else:
             raise Exception("addFile({}) => File Not Found".format(file_path))
