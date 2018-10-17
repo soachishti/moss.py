@@ -10,7 +10,7 @@ except(IOError, ImportError):
 setup(
   name = 'mosspy',
   packages = ['mosspy'], # this must be the same as the name above
-  version = '1.0.6',
+  version = '1.0.6.1',
   description = 'A Python client for Moss: A System for Detecting Software Similarity',
   long_description=long_description,
   author = 'soachishti',
@@ -19,5 +19,5 @@ setup(
   download_url = 'https://github.com/soachishti/moss.py/releases', # I'll explain this in a second
   keywords = ['moss', 'similarity', 'detecting', 'plagiarism'], # arbitrary keywords
   classifiers = [],
-  install_requires=['beautifulsoup4==4.6.0'],
+  install_requires=['beautifulsoup4', 'lxml'],
 )
