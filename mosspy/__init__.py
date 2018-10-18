@@ -1,4 +1,4 @@
 from .moss import Moss
 from .download_report import download_report
 
-__version__ = "1.0.6.1"
+__version__ = "1.0.7"
