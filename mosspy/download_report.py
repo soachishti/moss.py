@@ -38,9 +38,10 @@ def process_url(url, urls, base_url, path):
 
             if link not in urls:                    
                 urls.append(link)
-
-    f = open(os.path.join(path, file_name), 'w')
-    f.write(str(soup.decode('utf-8', 'ignore').replace(u'\xa9', u''))) # saving soup will save updated href
+    
+    f = open(os.path.join(path, file_name), 'wb')
+    html_encoding = soup.original_encoding
+    f.write(bytes(soup.decode(html_encoding), encoding=html_encoding))
     f.close()
 
 def download_report(url, path, connections = 4, log_level=logging.DEBUG):
