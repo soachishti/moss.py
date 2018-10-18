@@ -40,8 +40,7 @@ def process_url(url, urls, base_url, path):
                 urls.append(link)
     
     f = open(os.path.join(path, file_name), 'wb')
-    html_encoding = soup.original_encoding
-    f.write(bytes(soup.decode(html_encoding), encoding=html_encoding))
+    f.write(soup.encode(soup.original_encoding))
     f.close()
 
 def download_report(url, path, connections = 4, log_level=logging.DEBUG):
