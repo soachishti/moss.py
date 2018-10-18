@@ -25,20 +25,26 @@ def process_url(url, urls, base_url, path):
             link = more_url.get('src')
 
         if link and (link.find("match") != -1): # Download only results urls
-            link = link.split('#')[0]  # remove fragment from url
+            link_fragments = link.split('#')
+            link = link_fragments[0]  # remove fragment from url
+            
+            link_hash = ""
+            if len(link_fragments) > 1:
+                link_hash = "#" + link_fragments[1]
+            
             basename = os.path.basename(link)
 
             if basename == link: # Handling relative urls
                 link = base_url + basename
 
             if more_url.name == "a":
-                more_url['href'] = basename
+                more_url['href'] = basename + link_hash
             elif more_url.name == "frame":
                 more_url['src'] = basename
 
             if link not in urls:                    
                 urls.append(link)
-    
+
     f = open(os.path.join(path, file_name), 'wb')
     f.write(soup.encode(soup.original_encoding))
     f.close()
