@@ -101,11 +101,11 @@ class Moss:
             display_name
         )
         s.send(message.encode())
-        content = open(file_path, "rb").read(size)
-        s.send(content)
+        with open(file_path, "rb") as f:
+            s.send(f.read(size))
 
     def send(self):
-        s = socket.socket() 
+        s = socket.socket()
         s.connect((self.server, self.port))
 
         s.send("moss {}\n".format(self.user_id).encode())
