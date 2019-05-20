@@ -10,7 +10,7 @@ except(IOError, ImportError):
 setup(
   name = 'mosspy',
   packages = ['mosspy'], # this must be the same as the name above
-  version = '1.0.7',
+  version = '1.0.8',
   description = 'A Python client for Moss: A System for Detecting Software Similarity',
   long_description=long_description,
   author = 'soachishti',
