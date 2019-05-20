@@ -13,6 +13,7 @@ setup(
   version = '1.0.8',
   description = 'A Python client for Moss: A System for Detecting Software Similarity',
   long_description=long_description,
+  long_description_content_type='text/markdown',
   author = 'soachishti',
   author_email = 'soachishti@outlook.com',
   url = 'https://github.com/soachishti/moss.py', # use the URL to the github repo
