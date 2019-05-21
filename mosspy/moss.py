@@ -82,8 +82,8 @@ class Moss:
             raise Exception("addFile({}) => File not found or is empty.".format(file_path))
 
     def addFilesByWildcard(self, wildcard):
-        for file_path in glob.glob(wildcard):
-            self.addFile((file_path, None))
+        for file in glob.glob(wildcard):
+            self.files.append((file, None))
 
     def getLanguages(self):
         return self.languages
