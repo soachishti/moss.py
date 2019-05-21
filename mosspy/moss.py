@@ -73,17 +73,17 @@ class Moss:
         if os.path.isfile(file_path) and os.path.getsize(file_path) > 0:
             self.base_files.append((file_path, display_name))
         else:
-            raise Exception("addBaseFile({}) => File Not Found".format(file_path))
+            raise Exception("addBaseFile({}) => File not found or is empty.".format(file_path))
 
     def addFile(self, file_path, display_name=None):
         if os.path.isfile(file_path) and os.path.getsize(file_path) > 0:
             self.files.append((file_path, display_name))
         else:
-            raise Exception("addFile({}) => File Not Found".format(file_path))
+            raise Exception("addFile({}) => File not found or is empty.".format(file_path))
 
     def addFilesByWildcard(self, wildcard):
-        for file in glob.glob(wildcard):
-            self.files.append((file, None))
+        for file_path in glob.glob(wildcard):
+            self.addFile((file_path, None))
 
     def getLanguages(self):
         return self.languages
