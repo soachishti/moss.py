@@ -22,6 +22,7 @@ class Moss:
         "fortran",
         "ascii",
         "vhdl",
+        "verilog",
         "perl",
         "matlab",
         "python",
