@@ -1,7 +1,6 @@
 import os
 import socket
 import glob
-import logging
 
 try:
     from urllib.request import urlopen
@@ -89,7 +88,7 @@ class Moss:
     def getLanguages(self):
         return self.languages
 
-    def uploadFile(self, s, file_path, display_name, file_id):
+    def uploadFile(self, s, file_path, display_name, file_id, on_send):
         if display_name is None:
             # If no display name added by user, default to file path
             # Display name cannot accept \, replacing it with /
@@ -105,8 +104,9 @@ class Moss:
         s.send(message.encode())
         with open(file_path, "rb") as f:
             s.send(f.read(size))
+        on_send(file_path, display_name)
 
-    def send(self):
+    def send(self, on_send=lambda file_path, display_name: None):
         s = socket.socket()
         s.connect((self.server, self.port))
 
@@ -124,11 +124,11 @@ class Moss:
             raise Exception("send() => Language not accepted by server")
 
         for file_path, display_name in self.base_files:
-            self.uploadFile(s, file_path, display_name, 0)
+            self.uploadFile(s, file_path, display_name, 0, on_send)
 
         index = 1
         for file_path, display_name in self.files:
-            self.uploadFile(s, file_path, display_name, index)
+            self.uploadFile(s, file_path, display_name, index, on_send)
             index += 1
 
         s.send("query 0 {}\n".format(self.options['c']).encode())
