@@ -145,8 +145,9 @@ class Moss:
             raise Exception("Empty url supplied")
 
         response = urlopen(url)
-        content = response.read()
+        charset = response.headers.get_content_charset()
+        content = response.read().decode(charset)
 
-        f = open(path, 'w')
-        f.write(content.decode())
+        f = open(path, 'w', encoding='utf-8')
+        f.write(content)
         f.close()
