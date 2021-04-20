@@ -3,7 +3,8 @@
 
 name: Upload Python Package
 
-on:
+on: 
+  workflow_dispatch:
   release:
     types: [created]
 
@@ -28,4 +29,4 @@ jobs:
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
         python setup.py sdist bdist_wheel
-        twine upload --repository testpypi dist/*
+        twine upload dist/*
