@@ -35,7 +35,6 @@ m.addFilesByWildcard("submission/a01-*.py")
 url = m.send(lambda file_path, display_name: print('*', end='', flush=True))
 print()
 
-
 print ("Report Url: " + url)
 
 # Save report file
@@ -49,7 +48,7 @@ mosspy.download_report(url, "submission/report/", connections=8, log_level=10, o
 
 ## Python Compatibility
 
-* [Python](http://www.python.com) - v2.7.* and v3.*
+* [Python](http://www.python.com) - v3
 
 ## Similar Project
 

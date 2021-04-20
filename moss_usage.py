@@ -1,6 +1,6 @@
 import mosspy
 
-userid = 987654321
+userid = 987654321 # add your userid here
 
 m = mosspy.Moss(userid, "python")
 
