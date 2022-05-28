@@ -6,13 +6,14 @@ try:
 except ImportError:
     from urllib2 import urlopen
 
-def process_url(url, urls, base_url, path, on_read):
+def process_url(url, urls, base_url, path, on_read, on_read2):
     from bs4 import BeautifulSoup # Backward compability, don't break Moss when bs4 not available.
 
     logging.debug ("Processing URL: " + url)
     response = urlopen(url)
     html = response.read()
     on_read(url)
+    on_read2(url, len(urls))
     soup = BeautifulSoup(html, 'lxml')
     file_name = os.path.basename(url)
 
@@ -50,7 +51,7 @@ def process_url(url, urls, base_url, path, on_read):
     f.write(soup.encode(soup.original_encoding))
     f.close()
 
-def download_report(url, path, connections = 4, log_level=logging.DEBUG, on_read=lambda url: None):
+def download_report(url, path, connections = 4, log_level=logging.DEBUG, on_read=lambda url: None, on_read2=lambda url, left: None):
     logging.basicConfig(level=log_level)
 
     if len(url) == 0:
@@ -69,7 +70,7 @@ def download_report(url, path, connections = 4, log_level=logging.DEBUG, on_read
 
     # Handling thread
     for url in urls:
-        t = Thread(target=process_url, args=[url, urls, base_url, path, on_read])
+        t = Thread(target=process_url, args=[url, urls, base_url, path, on_read, on_read2])
         t.start()
         threads.append(t)
 
