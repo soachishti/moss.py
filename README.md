@@ -48,7 +48,7 @@ mosspy.download_report(url, "submission/report/", connections=8, log_level=10, o
 
 ## Python Compatibility
 
-* [Python](http://www.python.com) - v3
+* [Python3](https://www.python.org)
 
 ## Similar Project
 
