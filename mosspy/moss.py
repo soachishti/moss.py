@@ -74,6 +74,10 @@ class Moss:
             self.base_files.append((file_path, display_name))
         else:
             raise Exception("addBaseFile({}) => File not found or is empty.".format(file_path))
+    
+    def addBaseFilesByWildcard(self, wildcard):
+        for file in glob.glob(wildcard, recursive=True):
+            self.base_files.append((file, None))
 
     def addFile(self, file_path, display_name=None):
         if os.path.isfile(file_path) and os.path.getsize(file_path) > 0:
@@ -92,14 +96,14 @@ class Moss:
         if display_name is None:
             # If no display name added by user, default to file path
             # Display name cannot accept \, replacing it with /
-            display_name = file_path.replace(" ", "_").replace("\\", "/")
+            display_name = file_path.replace(" ", "-").replace("\\", "/").split("/")[-1]
 
         size = os.path.getsize(file_path)
         message = "file {0} {1} {2} {3}\n".format(
             file_id,
             self.options['l'],
             size,
-            display_name
+            display_name,
         )
         s.send(message.encode())
         with open(file_path, "rb") as f:
@@ -122,10 +126,12 @@ class Moss:
             s.send(b"end\n")
             s.close()
             raise Exception("send() => Language not accepted by server")
-
+        
+        print("Uploading Base Files....")
         for file_path, display_name in self.base_files:
             self.uploadFile(s, file_path, display_name, 0, on_send)
 
+        print("Uploading Testing Files")
         index = 1
         for file_path, display_name in self.files:
             self.uploadFile(s, file_path, display_name, index, on_send)
